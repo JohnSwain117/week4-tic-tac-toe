@@ -1,4 +1,13 @@
+#John Swain
+#Week 4&5 Assignment
+
 def printBoard(board):
+    print(board['top-L'] + '|' + board['top-M'] + '|' + board['top-R'])
+    print('-----')
+    print(board['mid-L'] + '|' + board['mid-M'] + '|' + board['mid-R'])
+    print('-----')
+    print(board['low-L'] + '|' + board['low-M'] + '|' + board['low-R'])
+
     # TO DO #################################################################
     # Write code in this function that prints the game board.               #
     # The code in this function should only print, the user should NOT      #
@@ -9,9 +18,17 @@ def printBoard(board):
 
 def checkWinner(board, player):    
     print('Checking if ' + player + ' is a winner...')
-    
+    return ((board['top-L'] == player and board['top-M'] == player and board['top-R'] == player) or
+            (board['mid-L'] == player and board['mid-M'] == player and board['mid-R'] == player) or
+            (board['low-L'] == player and board['low-M'] == player and board['low-R'] == player) or
+            (board['top-L'] == player and board['mid-L'] == player and board['low-L'] == player) or
+            (board['top-M'] == player and board['mid-M'] == player and board['low-M'] == player)or
+            (board['top-R'] == player and board['mid-R'] == player and board['low-R'] == player) or
+            (board['top-L'] == player and board['mid-M'] == player and board['low-R'] == player) or
+            (board['top-R'] == player and board['mid-M'] == player and board['low-L'] == player)) 
+
     # TO DO #################################################################
-    # Write code in this function that checks the tic-tac-toe board          #
+    # Write code in this function that checks the tic-tac-toe board         #
     # to determine if the player stored in variable 'player' currently      #
     # has a winning position on the board.                                  #
     # This function should return True if the player specified in           #
@@ -19,30 +36,29 @@ def checkWinner(board, player):
     # if the player in the variable 'player' has not won.                   #
     #########################################################################
     
-    
 def startGame(startingPlayer, board):
     # TO DO #################################################################
     # Add comments to each line in this function to describe what           #
     # is happening. You do not need to modify any of the Python code        #
     #########################################################################
 
-    turn = startingPlayer
-    for i in range(9):
-        printBoard(board)
-        print('Turn for ' + turn + '. Move on which space?')
-        move = input()
-        board[move] = turn
-        if( checkWinner(board, 'X') ):
-            print('X wins!')
-            break
-        elif ( checkWinner(board, 'O') ):
-            print('O wins!')
-            break
+    turn = startingPlayer 
+    for i in range(9): #There are only 9 squares so there can be a maximum of 9 turns
+        printBoard(board) #Calls and passes Board
+        print('Turn for ' + turn + '. Move on which space?') #Asking the player to pick a space
+        move = input() #Player picks a spot on the board
+        board[move] = turn #Records the position
+        if( checkWinner(board, 'X') ): #checks if X has 3 in a row
+            print('X wins!') #prints x wins
+            break #breaks out of the function
+        elif ( checkWinner(board, 'O') ): #checks if O has 3 in a row
+            print('O wins!') #prints o wins
+            break #breaks out of the function
     
-        if turn == 'X':
-            turn = 'O'
+        if turn == 'X': #If its X turn 
+            turn = 'O' #changes to Os turn
         else:
-            turn = 'X'
+            turn = 'X' #otherwise its Xs turn
         
     printBoard(board)
     
